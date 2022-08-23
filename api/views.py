@@ -1,10 +1,4 @@
-# from functools import partial
-# from select import select
-# from django.shortcuts import render
-from functools import partial
-import numbers
 from django.http.response import JsonResponse
-from rest_framework.parsers import JSONParser 
 from rest_framework import status
 
 from api.models import User, Account, Transaction
@@ -113,7 +107,7 @@ def transactions(request):
  
     elif request.method == 'POST':
         try:
-            account = Account.objects.get(number=request.data.get('numberId')) 
+            account = Account.objects.get(number=request.data.get('accountNumber')) 
         except Account.DoesNotExist: 
             return JsonResponse({'message': 'The account does not exist'}, status=status.HTTP_404_NOT_FOUND) 
  

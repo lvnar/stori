@@ -19,6 +19,7 @@ from django.urls import include, path
 import api, reader
 
 urlpatterns = [
+    # path('/'),
     path('api/', include('api.urls')),
-    path('input/', include('reader.urls')),
+    path('input', include('reader.urls')),
 ]
