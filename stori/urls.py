@@ -16,8 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
-# import reader
+import api, reader
 
 urlpatterns = [
-    path('api/', include('reader.urls')),
+    path('api/', include('api.urls')),
+    path('input/', include('reader.urls')),
 ]
