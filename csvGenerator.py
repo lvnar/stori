@@ -1,13 +1,14 @@
+import sys
 import time
 from random import random
 
-FILE_NAME = "input.csv"
+FILE_NAME = sys.argv[1] if len(sys.argv) > 1 else "input.csv"
 
-DATE_FORMAT = '%Y/%m/%d'
+DATE_FORMAT = '%Y-%m-%d'
 END_DATE = time.time()
 LIMIT_TRANSACTION = 10000
 
-init_date = time.mktime(time.strptime('2020/1/1',DATE_FORMAT))
+init_date = time.mktime(time.strptime('2020-1-1',DATE_FORMAT))
 
 with open(FILE_NAME, "w") as out:
     for i in range(100):
