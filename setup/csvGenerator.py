@@ -11,7 +11,8 @@ LIMIT_TRANSACTION = 10000
 init_date = time.mktime(time.strptime('2020-1-1',DATE_FORMAT))
 
 with open(FILE_NAME, "w") as out:
-    for i in range(100):
+    n = 100 if len(sys.argv) <= 2 else int(sys.argv[2])
+    for i in range(n):
         randtime = init_date + random() * 2000000.0
         randtime = END_DATE if randtime > END_DATE else randtime
         randdate = time.strftime(DATE_FORMAT, time.localtime(randtime))

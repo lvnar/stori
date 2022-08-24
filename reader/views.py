@@ -1,5 +1,7 @@
-import os, requests
+import json
+import requests
 
+from django.conf import settings
 from django.http.response import JsonResponse
 from rest_framework import status
 
@@ -12,11 +14,9 @@ def upload_file(request):
         if form.is_valid():
             account_data = file_handler.inputFileHandler(request.FILES['file'])
 
-            
-            url = os.getenv('API_URL', default='http://localhost:8000/') + 'mail'
-            resp = requests.post(url, data=account_data)
+            url = str(settings.API_URL) + 'mail'
+            resp = requests.post(url, json=account_data)
             if resp.status_code == requests.codes.ok:
-                pass
-            return JsonResponse(account_data, safe=False, status=status.HTTP_200_OK)
+                return JsonResponse(account_data, status=status.HTTP_200_OK)
 
         return JsonResponse(form.errors, status=status.HTTP_400_BAD_REQUEST)
