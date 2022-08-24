@@ -1,3 +1,4 @@
+from functools import partial
 from django.http.response import JsonResponse
 from rest_framework import status
 
@@ -34,7 +35,7 @@ def user(request, id):
         return JsonResponse(serializer.data, safe=False)
  
     elif request.method == 'PUT':
-        serializer = UserSerializer(user, data=request.data)
+        serializer = UserSerializer(user, data=request.data, partial=True)
         
         if serializer.is_valid():
             serializer.save()
