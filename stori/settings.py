@@ -126,3 +126,13 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+# Configurable Properties
+# URL where the API is located, localhost by default
+API_URL = 'http://localhost:8000/'
+# SMTP servevice used to deliver emails
+SMTP_URL = "https://api.sendinblue.com/v3/smtp/email"
+# API key used to access the SMTP Server
+SMTP_API_KEY = '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'
