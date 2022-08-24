@@ -114,7 +114,7 @@ def transactions(request):
         transaction = Transaction.objects.create(
             account=account,
             date=request.data.get('date'),
-            credit=(request.data.get('credit') == 'true'),
+            credit=(request.data.get('credit')),
             amount=request.data.get('amount')
             )
         serializer = TransactionSerializer(transaction)
