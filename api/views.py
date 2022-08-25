@@ -1,5 +1,5 @@
 from functools import partial
-from django.http.response import JsonResponse
+from django.http.response import JsonResponse, HttpResponse
 from rest_framework import status
 
 from api.models import User, Account, Transaction
@@ -20,7 +20,7 @@ def users(request):
         if serializer.is_valid():
             serializer.save()
             return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
-        return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return HttpResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def user(request, id):
@@ -40,7 +40,7 @@ def user(request, id):
         if serializer.is_valid():
             serializer.save()
             return JsonResponse(serializer.data)
-        return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return HttpResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     elif request.method == 'DELETE':
         serializer = UserSerializer(user, {'isActive': False}, partial=True)
@@ -48,7 +48,7 @@ def user(request, id):
         if serializer.is_valid():
             serializer.save()
             return JsonResponse({'message': 'User with email {} deactivated'.format(user.email)}, status=status.HTTP_204_NO_CONTENT)
-        return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return HttpResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 
 @api_view(['GET', 'POST'])
@@ -68,7 +68,7 @@ def accounts(request):
         serializer = AccountSerializer(account)
 
         return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
-    return JsonResponse(status=status.HTTP_400_BAD_REQUEST)
+    return HttpResponse(status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def account(request, number):
@@ -88,7 +88,7 @@ def account(request, number):
         if serializer.is_valid():
             serializer.save()
             return JsonResponse(serializer.data)
-        return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return HttpResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     elif request.method == 'DELETE':
         serializer = AccountSerializer(account, {'isActive': False}, partial=True)
@@ -96,7 +96,7 @@ def account(request, number):
         if serializer.is_valid():
             serializer.save()
             return JsonResponse({'message': 'Account with number {} deactivated'.format(account.number)}, status=status.HTTP_204_NO_CONTENT)
-        return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return HttpResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     
 @api_view(['GET', 'POST'])
@@ -121,7 +121,7 @@ def transactions(request):
         serializer = TransactionSerializer(transaction)
 
         return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
-    return JsonResponse(status=status.HTTP_400_BAD_REQUEST)
+    return HttpResponse(status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def transaction(request, id):
@@ -137,11 +137,12 @@ def transaction(request, id):
  
     elif request.method == 'PUT':
         serializer = TransactionSerializer(transaction, data=request.data, partial=True)
+        print(serializer)
         
         if serializer.is_valid():
             serializer.save()
             return JsonResponse(serializer.data)
-        return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return HttpResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     elif request.method == 'DELETE':
         transaction.delete() 
