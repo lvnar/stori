@@ -4,9 +4,16 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-djangorestframework = "*"
-django = "*"
-requests = "*"
+djangorestframework = "==3.13.1"
+django = "==4.1"
+requests = "==2.28.1"
+asgiref = "==3.5.2"
+certifi = "==2022.6.15"
+charset-normalizer = "==2.1.1"
+idna = "==3.3"
+pytz = "==2022.2.1"
+sqlparse = "==0.4.2"
+urllib3 = "==1.26.12"
 
 [dev-packages]
 
