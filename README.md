@@ -8,12 +8,15 @@ Django project design to complish with the Stori Card challenge to:
 
 ___
 ## Configuration
-There are some fields that can be set in ./stori/settings.py
+There are some fields that can be set in .env file
 according to environment:
-- DEBUG - False on Production environment
-- API_URL - 'localhost' by default but configurable
-- SMTP_URL - SMTP relay address
+- ENV - False on Production environment
+- API_URL - 'localhost' by default. Escalability oriented.
+- SMTP_URL - SMTP relay address.
 - SMTP_API_KEY - SMTP security access key
+- DJANGO_SECRET_KEY - Project secret key
+
+- T_EMAIL,T_NAME,T_ACCOUNT - Testing driven values
 
 ___
 ## Deployment
@@ -25,13 +28,13 @@ Project requires Python3 installed. Run the net commands:
     ```
 2. Set virtual environment up 
     ```
-    pipenv shell
-    pipenv install
-    python manage.py migrate
+    pipenv --python 3.10
+    pipenv install -r requirements.txt
+    pipenv run python manage.py migrate
     ```
 3. Run server
     ```
-    python manage.py runserver
+    pipenv run python manage.py runserver
     ```
 
 ___
@@ -40,5 +43,5 @@ Running this script you create the minimal requirements in DB to run
 a successful test and get a summary of loaded info in the inbox. There
 are a few fields which can be set to get email in personal inbox.
 ```
-bash setup/setup.sh
+bash setup/test.py
 ````
