@@ -1,6 +1,5 @@
-import requests, json
+import requests, os
 from django import forms
-from django.conf import settings
 
 class UploadFileForm(forms.Form):
     file = forms.FileField()
@@ -17,7 +16,7 @@ def inputFileHandler(file):
         params = line.split(',')
 
         if len(params) == 3:
-            url = str(settings.API_URL) + 'api/transaction'
+            url = os.getenv('API_URL', 'http://localhost:8000') + '/api/transaction'
 
             data = {
                 'accountNumber': accountNumber,
@@ -28,7 +27,7 @@ def inputFileHandler(file):
 
             requests.post(url, data=data)
             
-    url = str(settings.API_URL) + 'api/account/' + accountNumber
+    url = os.getenv('API_URL', 'http://localhost:8000') + '/api/account/' + accountNumber
     return requests.get(url).json()
 
 

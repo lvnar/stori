@@ -1,7 +1,5 @@
-import requests
-
-from django.conf import settings
-from django.http.response import JsonResponse
+import requests, os
+from django.http.response import JsonResponse, HttpResponse
 from rest_framework import status
 from rest_framework.decorators import api_view
 
@@ -28,7 +26,7 @@ def send(request):
                 classType = 'creditRow' if t['credit'] else 'DebitRow',
             ))
 
-        with open(str(settings.BASE_DIR) + '/mailer/template.html', 'r') as template:
+        with open('./mailer/template.html', 'r') as template:
             html = template.read()
             html = html.format(
                 name=name, 
@@ -46,14 +44,14 @@ def send(request):
         headers = {
             "Accept": "application/json",
             "Content-Type": "application/json",
-            "api-key": str(settings.SMTP_API_KEY)
+            "api-key": os.getenv('SMTP_API_KEY')
         }
-        requests.post(str(settings.SMTP_URL), json=payload, headers=headers)
+        requests.post(os.getenv('SMTP_URL'), json=payload, headers=headers)
 
         return JsonResponse({'mensaje':'Correo enviado exitosamente'}, status=status.HTTP_200_OK)
 
     except Exception as e:
-        return JsonResponse(e, status=status.HTTP_400_BAD_REQUEST)
+        return HttpResponse(e, status=status.HTTP_400_BAD_REQUEST)
 
 
 

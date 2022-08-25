@@ -28,7 +28,7 @@ class AccountDetailSerializer(serializers.ModelSerializer):
  
 class UserSerializer(serializers.ModelSerializer):
     isActive = serializers.BooleanField(default=True)
-    accounts = serializers.StringRelatedField(many=True)
+    # accounts = serializers.StringRelatedField(many=True)
  
     class Meta:
         model = User
